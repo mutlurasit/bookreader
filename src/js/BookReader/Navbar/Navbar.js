@@ -21,7 +21,12 @@ export class Navbar {
     if (option.template) {
       return option.template(this.br);
     }
-    return `<button class="BRicon ${option.className} desktop-only js-tooltip"></button>`;
+    return `<li>
+      <button class="BRicon ${option.className} desktop-only" title="${option.label}">
+        <div class="icon icon-${option.className}"></div>
+        <span class="tooltip">${option.label}</span>
+      </button>
+    </li>`;
   }
 
   /**
@@ -37,24 +42,50 @@ export class Navbar {
       `<div class="BRnav BRnavDesktop">
           <div class="BRnavCntl BRnavCntlBtm BRdn js-tooltip" title="Toggle toolbars"></div>
           ${title ? `<div class="BRnavTitle">${title}</div>` : ''}
-          <div class="BRnavpos">
-            <div class="BRpager"></div>
-            <div class="BRnavline"></div>
-          </div>
-          <div class="BRpage">`
-
-        // Note, it's important for there to not be whitespace
-        + `<span class='BRcurrentpage'></span>`
-        + `<button class="BRicon book_left js-tooltip"></button>`
-        + `<button class="BRicon book_right js-tooltip"></button>`
-        + this.controlFor('onePage')
-        + this.controlFor('twoPage')
-        + this.controlFor('thumbnail')
-        // zoomx
-        + `<button class="BRicon zoom_out desktop-only js-tooltip"></button>`
-        + `<button class="BRicon zoom_in desktop-only js-tooltip"></button>`
-        + `<button class="BRicon full js-tooltip"></button>`
-        + `</div>
+          <nav class="BRcontrols">
+            <ul class="controls">
+              <li class="scrubber">
+                <div class="BRnavpos">
+                  <div class="BRpager"></div>
+                  <div class="BRnavline"></div>
+                </div>
+                <p><span class='BRcurrentpage'></span></p>
+              </li>
+              <li>
+                <button class="BRicon book_left" title="Flip left">
+                  <div class="icon icon-left-arrow"></div>
+                  <span class="tooltip">Flip left</span>
+                </button>
+              </li>
+              <li>
+                <button class="BRicon book_right" title="Flip right">
+                  <div class="icon icon-left-arrow hflip"></div>
+                  <span class="tooltip">Flip right</span>
+                </button>
+              </li>
+              ${this.controlFor('onePage')}
+              ${this.controlFor('twoPage')}
+              ${this.controlFor('thumbnail')}
+              <li>
+                <button class="BRicon zoom_out desktop-only" title="Zoom out">
+                  <div class="icon icon-magnify"></div>
+                  <span class="tooltip">Zoom out</span>
+                </button>
+              </li>
+              <li>
+                <button class="BRicon zoom_in desktop-only" title="Zoom in">
+                  <div class="icon icon-magnify plus"></div>
+                  <span class="tooltip">Zoom in</span>
+                </button>
+              </li>
+              <li>
+                <button class="BRicon full" title="Toggle fullscreen">
+                  <div class="icon icon-fullscreen"></div>
+                  <span class="tooltip">Toggle fullscreen</span>
+                </button>
+              </li>
+            </ul>
+          </nav>
         </div>`);
 
     this.$root.append(this.$nav);
